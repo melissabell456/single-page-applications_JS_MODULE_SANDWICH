@@ -1,0 +1,85 @@
+<!-- Your project should have one HTML file that has:
+
+    The ingredient choices in each module should be stored as JS objects that contain the ingredients as keys and their cost as the value. {"turkey": 0.90, "bacon": 1.50}
+    
+    Make sure the ingredient objects cannot be accessed by the other modules except through an accessor (getter) method.
+    
+    Each module should expose, via module.exports, a method named add{ingredient} (e.g. addMeat or addVeggies) that accepts a single argument. That argument's value should be the ingredient selected by the user. You will need to implement Browserify as a task in a Gruntfile, in order to compile your modules into a single JS file.
+    
+    You should also create an additional JavaScript file that handles interacting with the form elements and determining which method should be called.
+    
+    Don't worry about exposing the prices to the user until you display the final cost. This is just an exercise, not a business model. -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+<!-- A section of options for each sandwich part
+The ability to select multiple, or zero, choices for each section (such as turkey and bacon, or "no meat")
+An empty DOM element into which the final sandwich order and its cost will be inserted
+Create a sandwich order form that allows the user to select all the ingredients for a custom deli sandwich. Create a Sandwich module, then create the following as individual modules.
+
+bread
+meat
+cheese
+condiments
+veggies -->
+        <div id = sandwichParts>
+            <section id="bread">
+                <h2>Choose Your Bread(s):</h2>
+                    <input type="checkbox" class="bread" value="Baguette"> Baguette
+                    <input type="checkbox" class="bread" value="Sourdough"> Sourdough
+                    <input type="checkbox" class="bread" value="Multi-Grain"> Multi-Grain
+            </section>
+            <section id="meat">
+                <h2>Meat(s):</h2>
+                    <input type="checkbox" class="meat" value="Turkey"> Turkey
+                    <input type="checkbox" class="meat" value="Ham"> Ham
+                    <input type="checkbox" class="meat" value="None"> None
+            </section>
+            <section id="cheese">
+                <h2>Cheeses:</h2>
+                    <input type="checkbox" class="cheese" value="Meunster"> Meunster
+                    <input type="checkbox" class="cheese" value="Cheddar"> Cheddar
+                    <input type="checkbox" class="cheese" value="Provolone"> Provolone
+            </section>
+            <section id="condiments">
+                    <h2>Condiment(s):</h2>
+                    <input type="checkbox" class="condiment" value="Mustard"> Mustard
+                    <input type="checkbox" class="condiment" value="Mayo"> Mayo
+                    <input type="checkbox" class="condiment" value="Ketchup"> Ketchup
+            </section>
+            <section id="veggies">
+                <h2>Veggie(s):</h2>
+                    <input type="checkbox" class="veggie" value="Tomato"> Tomato
+                    <input type="checkbox" class="veggie" value="Spinach"> Spinach
+                    <input type="checkbox" class="veggie" value="Cucumber"> Cucumber
+            </section>
+        </div>   
+        <div id="finalSandwich">
+            <h1>Checkout:</h1>
+                <h3>Your Final Order:</h3>
+                    <p id="finalOrder"></p>
+                <h3>Your Final cost:</h3>
+                    <p id="finalCost"></p>
+        </div> 
+    <script src="sandwichMaker.js"></script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
