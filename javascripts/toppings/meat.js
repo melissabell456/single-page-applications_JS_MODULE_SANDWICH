@@ -5,8 +5,9 @@
 let meatPrices = { turkey: 0.75, ham: 1.25, none: 0.00 }; //why is one key in quotes but the other isn't?
 
 const addMeat = function(meatSelection) {
-    return meatPrices.meatSelection;
-  //code that grabs the correct meat price and returns it
+  console.log(meatSelection);
+    return meatPrices[meatSelection];
+  // code that grabs the correct meat price and returns it
 };
 
 module.exports = { addMeat }; //What exactly is being exported here?
