@@ -1,6 +1,6 @@
 "use strict";
 
 const bake = require("./DOMhandler");
-console.log('hello');
 
-// bake.getMeatPrice();
+let finalOrder = document.getElementById("finalOrder");
+finalOrder.innerHTML = bake;

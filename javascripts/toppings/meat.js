@@ -10,4 +10,4 @@ const addMeat = function(meatSelection) {
   // code that grabs the correct meat price and returns it
 };
 
-module.exports = { addMeat }; //What exactly is being exported here?
+module.exports =addMeat;

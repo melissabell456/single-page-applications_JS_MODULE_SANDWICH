@@ -1,121 +1,65 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
-console.log("Lindjhgasked to Dom Handler");
+
 const meat = require("./toppings/meat");
 const bread = require("./toppings/bread");
 const cheese = require("./toppings/cheese");
 const veggie = require("./toppings/veggies");
 const condiment = require("./toppings/condiments");
 
+const categories = {
+  meat: meat,
+  bread: bread,
+  cheese: cheese,
+  veggie: veggie,
+  condiment: condiment
+};
 
-var sandwichPrice = 0;
 
-var meatChoice = document.getElementsByClassName("meat");
-var cheeseChoice = document.getElementsByClassName("cheese");
-var breadChoice = document.getElementsByClassName("bread");
-var condimentChoice = document.getElementsByClassName("condiment");
-var veggieChoice = document.getElementsByClassName("veggie");
+let chosenToppings = [];
+let toppingPrices = [];
+let toppingChoice = document.getElementsByTagName("input");
+let addBtn = document.getElementById("addToCart");
 
-// meat eventlisteners
-for (let i = 0; i < meatChoice.length; i++) {
-  meatChoice[i].addEventListener("change", whichMeat);
+for (let i = 0; i < toppingChoice.length; i++) {
+  toppingChoice[i].addEventListener("change", getToppingStats);
 }
 
-function whichMeat () {
-  console.log("you picked meat");
-  let selectedMeat = event.currentTarget.value;
-  console.log(selectedMeat);
-  let meatPrice = meat.addMeat(selectedMeat);
-  console.log(meatPrice);
-  return [selectedMeat, meatPrice];
+function getToppingStats () {
+  let toppingType = event.currentTarget.value;
+  chosenToppings.push(toppingType);
+  console.log("here is the list of toppings", chosenToppings);
+  let toppingSelection = event.currentTarget.className;
+  let toppingPrice = categories[toppingSelection](toppingType);
+  toppingPrices.push(toppingPrice);
+  console.log("here is the list of toppings", toppingPrices);
 }
 
-// cheese eventlisteners
-for (let i = 0; i < cheeseChoice.length; i++) {
-  cheeseChoice[i].addEventListener("change", whichCheese);
+// clear toppings if unselected?
+
+addBtn.addEventListener("click", consolidateSelections);
+
+function consolidateSelections() {
+  let toppingsString = chosenToppings.toString("  ");
+  console.log(toppingsString);
+  let totalPrice = toppingPrices.reduce( (total, num) => { return total + num;});
+  console.log(totalPrice);
+  let custComm = ["Items Selected:", toppingsString, "Total Cost:", totalPrice];
+  printToDom(custComm);
 }
 
-function whichCheese () {
-  console.log("you picked cheese");
-  let selectedCheese = event.currentTarget.value;
-  console.log(selectedCheese);
-  let cheesePrice = cheese.addCheese(selectedCheese);
-  console.log(cheesePrice);
-  return [selectedCheese, cheesePrice];
+function printToDom (statement) {
+  let finalOrder = document.getElementById("finalOrder");
+  finalOrder.innerHTML = statement.toString(" ");
 }
 
-// bread
-for (let i = 0; i < breadChoice.length; i++) {
-  breadChoice[i].addEventListener("change", whichBread);
-}
-
-function whichBread () {
-  console.log("you picked bread");
-  let selectedBread = event.currentTarget.value;
-  console.log(selectedBread);
-  let breadPrice = bread.addBread(selectedBread);
-  console.log(breadPrice);
-  return [selectedBread, breadPrice];
-}
-
-// condiment
-for (let i = 0; i < condimentChoice.length; i++) {
-  condimentChoice[i].addEventListener("change", whichCondiment);
-}
-
-function whichCondiment () {
-  console.log("you picked condiment");
-  let selectedCondiment = event.currentTarget.value;
-  console.log(selectedCondiment);
-  let condimentPrice = condiment.addCondiment(selectedCondiment);
-  console.log(condimentPrice);
-  return [selectedCondiment, condimentPrice];
-}
-
-// veggies
-for (let i = 0; i < veggieChoice.length; i++) {
-  veggieChoice[i].addEventListener("change", whichVeggie);
-}
-
-function whichVeggie () {
-  console.log("you picked veggie");
-  let selectedVeggie = event.currentTarget.value;
-  console.log(selectedVeggie);
-  let veggiePrice = veggie.addVeggie(selectedVeggie);
-  console.log(veggiePrice);
-  return [selectedVeggie, veggiePrice];
-}
-
-
-
-var finalMeat = meatChoice;
-var finalBread = breadChoice;
-var finalCheese = cheeseChoice;
-var finalVeggie = veggieChoice;
-var finalCondiment = condimentChoice;
-
-// Determine the price of the topping chosen
-
-// function getMeatPrice (finalMeat) {
-// }
-let breadPrice = bread.addBread.finalBread;
-let cheesePrice = cheese.addCheese.finalCheese;
-let veggiePrice = veggie.addVeggie.finalVeggie;
-let condimentPrice = condiment.addCondiment.finalCondiment;
-
-
-// sandwichPrice = meatPrice + breadPrice + cheesePrice + veggiePrice + condimentPrice; 
-
-  // Add the price to the total price and update the DOM to display the sandwich cost
-
-// module.exports = { getMeatPrice };
 },{"./toppings/bread":3,"./toppings/cheese":4,"./toppings/condiments":5,"./toppings/meat":6,"./toppings/veggies":7}],2:[function(require,module,exports){
 "use strict";
 
 const bake = require("./DOMhandler");
-console.log('hello');
 
-// bake.getMeatPrice();
+let finalOrder = document.getElementById("finalOrder");
+finalOrder.innerHTML = bake;
 },{"./DOMhandler":1}],3:[function(require,module,exports){
 "use strict";
 
@@ -125,18 +69,17 @@ const addBread = function(breadSelection) {
     return breadPrices[breadSelection];
 };
 
-module.exports = { addBread };
+module.exports =addBread;
 },{}],4:[function(require,module,exports){
 "use strict";
 
 let cheesePrices = { meunster: 1.00, cheddar: 1.50, provolone: 1.00 };
 
 const addCheese = function(cheeseSelection) {
-    console.log("hi");
     return cheesePrices[cheeseSelection];
 };
 
-module.exports = { addCheese };
+module.exports = addCheese;
 },{}],5:[function(require,module,exports){
 "use strict";
 
@@ -146,7 +89,7 @@ const addCondiment = function(condimentSelection) {
     return condimentPrices[condimentSelection];
 };
 
-module.exports = { addCondiment };
+module.exports =addCondiment;
 },{}],6:[function(require,module,exports){
 "use strict";
 // if you cannot answer the questions in the example, do not copy and paste it. Know what's going on before you use code you didn't write
@@ -160,7 +103,7 @@ const addMeat = function(meatSelection) {
   // code that grabs the correct meat price and returns it
 };
 
-module.exports = { addMeat }; //What exactly is being exported here?
+module.exports =addMeat;
 },{}],7:[function(require,module,exports){
 "use strict";
 
@@ -171,5 +114,5 @@ const addVeggie = function(veggieSelection) {
     return veggiePrices[veggieSelection];
 };
 
-module.exports = { addVeggie };
+module.exports =addVeggie;
 },{}]},{},[2]);

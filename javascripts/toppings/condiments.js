@@ -6,4 +6,4 @@ const addCondiment = function(condimentSelection) {
     return condimentPrices[condimentSelection];
 };
 
-module.exports = { addCondiment };
+module.exports =addCondiment;

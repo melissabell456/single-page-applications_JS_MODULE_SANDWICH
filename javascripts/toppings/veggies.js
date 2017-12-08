@@ -7,4 +7,4 @@ const addVeggie = function(veggieSelection) {
     return veggiePrices[veggieSelection];
 };
 
-module.exports = { addVeggie };
+module.exports =addVeggie;

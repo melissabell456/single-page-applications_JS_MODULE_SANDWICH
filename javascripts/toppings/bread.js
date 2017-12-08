@@ -6,4 +6,4 @@ const addBread = function(breadSelection) {
     return breadPrices[breadSelection];
 };
 
-module.exports = { addBread };
+module.exports =addBread;
