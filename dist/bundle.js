@@ -18,12 +18,6 @@ const categories = {
 
 let chosenToppings = [];
 let toppingPrices = [];
-let toppingChoice = document.getElementsByTagName("input");
-let addBtn = document.getElementById("addToCart");
-
-for (let i = 0; i < toppingChoice.length; i++) {
-  toppingChoice[i].addEventListener("change", getToppingStats);
-}
 
 function getToppingStats () {
   let toppingType = event.currentTarget.value;
@@ -37,29 +31,37 @@ function getToppingStats () {
 
 // clear toppings if unselected?
 
-addBtn.addEventListener("click", consolidateSelections);
+
 
 function consolidateSelections() {
-  let toppingsString = chosenToppings.toString("  ");
+  let toppingsString = chosenToppings.join("  ");
   console.log(toppingsString);
   let totalPrice = toppingPrices.reduce( (total, num) => { return total + num;});
   console.log(totalPrice);
-  let custComm = ["Items Selected:", toppingsString, "Total Cost:", totalPrice];
+  let custComm = ["You have Selected", toppingsString, "Your total cost is:", totalPrice];
   printToDom(custComm);
 }
 
 function printToDom (statement) {
   let finalOrder = document.getElementById("finalOrder");
-  finalOrder.innerHTML = statement.toString(" ");
+  finalOrder.innerHTML = statement.join(" ");
 }
 
+module.exports = {getToppingStats, consolidateSelections};
 },{"./toppings/bread":3,"./toppings/cheese":4,"./toppings/condiments":5,"./toppings/meat":6,"./toppings/veggies":7}],2:[function(require,module,exports){
 "use strict";
 
 const bake = require("./DOMhandler");
 
-let finalOrder = document.getElementById("finalOrder");
-finalOrder.innerHTML = bake;
+
+var toppingChoice = document.getElementsByTagName("input");
+var addBtn = document.getElementById("addToCart");
+
+addBtn.addEventListener("click", bake.consolidateSelections);
+for (let i = 0; i < toppingChoice.length; i++) {
+    toppingChoice[i].addEventListener("change", bake.getToppingStats);
+}
+
 },{"./DOMhandler":1}],3:[function(require,module,exports){
 "use strict";
 

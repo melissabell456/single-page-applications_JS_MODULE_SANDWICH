@@ -17,12 +17,6 @@ const categories = {
 
 let chosenToppings = [];
 let toppingPrices = [];
-let toppingChoice = document.getElementsByTagName("input");
-let addBtn = document.getElementById("addToCart");
-
-for (let i = 0; i < toppingChoice.length; i++) {
-  toppingChoice[i].addEventListener("change", getToppingStats);
-}
 
 function getToppingStats () {
   let toppingType = event.currentTarget.value;
@@ -36,18 +30,20 @@ function getToppingStats () {
 
 // clear toppings if unselected?
 
-addBtn.addEventListener("click", consolidateSelections);
+
 
 function consolidateSelections() {
-  let toppingsString = chosenToppings.toString("  ");
+  let toppingsString = chosenToppings.join("  ");
   console.log(toppingsString);
   let totalPrice = toppingPrices.reduce( (total, num) => { return total + num;});
   console.log(totalPrice);
-  let custComm = ["Items Selected:", toppingsString, "Total Cost:", totalPrice];
+  let custComm = ["You have Selected", toppingsString, "Your total cost is:", totalPrice];
   printToDom(custComm);
 }
 
 function printToDom (statement) {
   let finalOrder = document.getElementById("finalOrder");
-  finalOrder.innerHTML = statement.toString(" ");
+  finalOrder.innerHTML = statement.join(" ");
 }
+
+module.exports = {getToppingStats, consolidateSelections};
