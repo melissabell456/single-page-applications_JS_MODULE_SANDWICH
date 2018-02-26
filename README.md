@@ -1,4 +1,7 @@
 # single-page-applications_JS_MODULE_SANDWICH
+
+## NSS Exercise - practice modular code. introduction to modular code.
+
 Your project should have one HTML file that has:
 
 A section of options for each sandwich part
